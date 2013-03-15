@@ -6626,7 +6626,6 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	msm8x60_init_buses();
 	platform_add_devices(early_devices, ARRAY_SIZE(early_devices));
 	/* CPU frequency control is not supported on simulated targets. */
-//	acpuclk_init();
 
 #ifdef CONFIG_PERFLOCK
 	perflock_init(&shooter_u_perflock_data);
@@ -6693,16 +6692,16 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	fixup_i2c_configs();
 	register_i2c_devices();
 
-/*	if (ps_type == 1) {
+	if (ps_type == 1) {
 		i2c_register_board_info(MSM_GSBI10_QUP_I2C_BUS_ID,
 			i2c_isl29028_devices,
 			ARRAY_SIZE(i2c_isl29028_devices));
-	} else if (ps_type == 2) { */
+	} else if (ps_type == 2) {
 		i2c_register_board_info(MSM_GSBI10_QUP_I2C_BUS_ID,
 			i2c_isl29029_devices,
 			ARRAY_SIZE(i2c_isl29029_devices));
-	//} else
-	//	printk(KERN_DEBUG "No Intersil chips\n");
+	} else
+		printk(KERN_DEBUG "No Intersil chips\n");
 
 	platform_device_register(&smsc911x_device);
 
