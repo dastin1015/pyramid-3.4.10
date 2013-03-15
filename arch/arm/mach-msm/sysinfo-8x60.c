@@ -30,7 +30,7 @@
 #include <mach/gpio.h>		/* msm gpio */
 #include <linux/mfd/pmic8058.h>	/* pmic8058 gpio & mpp */
 #include <mach/mpp.h>		/* pm8901 mpp */
-
+#include <linux/gpio-msm-common.h>
 
 /* for Register dump */
 #include <mach/msm_iomap.h>
