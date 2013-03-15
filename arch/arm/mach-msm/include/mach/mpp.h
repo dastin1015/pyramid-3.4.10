@@ -54,6 +54,7 @@ int mpp_config_digital_in(unsigned mpp, unsigned config);
 #ifdef CONFIG_PMIC8058
 int pm8058_mpp_config(unsigned mpp, unsigned type, unsigned level,
 		      unsigned control);
+int pm8058_dump_mpp(struct seq_file *m, int curr_len, char *gpio_buffer);
 #else
 static inline int pm8058_mpp_config(unsigned mpp, unsigned type,
 				    unsigned level, unsigned control)
@@ -65,6 +66,7 @@ static inline int pm8058_mpp_config(unsigned mpp, unsigned type,
 #ifdef CONFIG_PMIC8901
 int pm8901_mpp_config(unsigned mpp, unsigned type, unsigned level,
 		      unsigned control);
+int pm8901_dump_mpp(struct seq_file *m, int curr_len, char *gpio_buffer);
 #else
 static inline int pm8901_mpp_config(unsigned mpp, unsigned type,
 				    unsigned level, unsigned control)
