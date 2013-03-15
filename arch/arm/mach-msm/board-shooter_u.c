@@ -1086,7 +1086,7 @@ static int msm_hsusb_pmic_id_notif_init(void (*callback)(int online), int init)
 
 	if (init) {
 		notify_vbus_state_func_ptr = callback;
-		ret = pm8901_mpp_config_digital_out(1,
+		ret = pm8xxx_mpp_config_digital_out(1,
 			PM8901_MPP_DIG_LEVEL_L5, 1);
 		if (ret) {
 			pr_err("%s: MPP2 configuration failed\n", __func__);
@@ -1097,7 +1097,7 @@ static int msm_hsusb_pmic_id_notif_init(void (*callback)(int online), int init)
 			(IRQF_TRIGGER_RISING|IRQF_TRIGGER_FALLING),
 						"msm_otg_id", NULL);
 		if (ret) {
-			pm8901_mpp_config_digital_out(1,
+			pm8xxx_mpp_config_digital_out(1,
 					PM8901_MPP_DIG_LEVEL_L5, 0);
 			pr_err("%s:pmic_usb_id interrupt registration failed",
 					__func__);
@@ -1109,7 +1109,7 @@ static int msm_hsusb_pmic_id_notif_init(void (*callback)(int online), int init)
 		free_irq(PMICID_INT, 0);
 		cancel_delayed_work_sync(&pmic_id_det);
 		notify_vbus_state_func_ptr = NULL;
-		ret = pm8901_mpp_config_digital_out(1,
+		ret = pm8xxx_mpp_config_digital_out(1,
 			PM8901_MPP_DIG_LEVEL_L5, 0);
 		if (ret) {
 			pr_err("%s:MPP2 configuration failed\n", __func__);

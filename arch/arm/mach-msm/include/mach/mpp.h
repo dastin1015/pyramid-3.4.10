@@ -63,17 +63,11 @@ static inline int pm8058_mpp_config(unsigned mpp, unsigned type,
 }
 #endif
 
-#ifdef CONFIG_PMIC8901
-int pm8901_mpp_config(unsigned mpp, unsigned type, unsigned level,
-		      unsigned control);
-int pm8901_dump_mpp(struct seq_file *m, int curr_len, char *gpio_buffer);
-#else
 static inline int pm8901_mpp_config(unsigned mpp, unsigned type,
 				    unsigned level, unsigned control)
 {
 	return -EINVAL;
 }
-#endif
 
 #define	PM_MPP_TYPE_D_INPUT		0
 #define	PM_MPP_TYPE_D_OUTPUT		1

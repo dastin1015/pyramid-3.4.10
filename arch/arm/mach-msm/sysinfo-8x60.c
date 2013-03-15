@@ -97,7 +97,7 @@ static int sys_gpio_read_proc(char *page, char **start, off_t off,
 		len = msm_dump_gpios(NULL, len, gpio_info_buffer);
 		len = pm8xxx_dump_gpios(NULL, len, gpio_info_buffer);
 		len = pm8xxx_dump_mpp(NULL, len, gpio_info_buffer);
-		len = pm8901_dump_mpp(NULL, len, gpio_info_buffer);
+		len = pm8xxx_dump_mpp(NULL, len, gpio_info_buffer);
 		pr_info("%s: total bytes = %d.\n", __func__, len);
 	}
 	len = strlen(gpio_info_buffer + off);
