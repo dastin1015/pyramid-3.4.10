@@ -6708,8 +6708,8 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 
 	msm_pm_set_platform_data(msm_pm_data, ARRAY_SIZE(msm_pm_data));
 	msm_pm_set_rpm_wakeup_irq(RPM_SCSS_CPU0_WAKE_UP_IRQ);
-	msm_cpuidle_set_states(msm_cstates, ARRAY_SIZE(msm_cstates),
-				msm_pm_data);
+//	msm_cpuidle_set_states(msm_cstates, ARRAY_SIZE(msm_cstates),
+//				msm_pm_data);
 	BUG_ON(msm_pm_boot_init(MSM_PM_BOOT_CONFIG_TZ));
 
 	pm8058_gpios_init();
