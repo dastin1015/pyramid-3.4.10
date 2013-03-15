@@ -20,7 +20,6 @@
 #include <linux/mfd/pmic8901.h>
 #include <mach/mpp.h>
 #include <linux/seq_file.h>
-#include <linux/module.h> 
 
 /* MPP Control Registers */
 #define	SSBI_MPP_CNTRL_BASE		0x27
