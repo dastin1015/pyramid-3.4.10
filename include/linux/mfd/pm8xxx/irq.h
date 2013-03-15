@@ -41,7 +41,6 @@ int pm8xxx_irq_exit(struct pm_irq_chip *chip);
 int pm8xxx_get_irq_wake_stat(struct pm_irq_chip *chip, int irq);
 int pm8xxx_get_irq_base(struct pm_irq_chip *chip);
 int pm8xxx_get_irq_it_stat(struct pm_irq_chip *chip, int irq);
-int pm8xxx_get_is_irq_masked(struct pm_irq_chip *chip, int irq);
 #else
 static inline int pm8xxx_get_irq_stat(struct pm_irq_chip *chip, int irq)
 {
@@ -76,9 +75,10 @@ static inline int pm8xxx_get_irq_it_stat(struct pm_irq_chip *chip, int irq)
 {
 	return -ENXIO;
 }
+#endif 
 static inline int pm8xxx_get_is_irq_masked(struct pm_irq_chip *chip, int irq)
 {
 	return -ENXIO;
 }
-#endif 
+
 #endif 

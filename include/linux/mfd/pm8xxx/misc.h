@@ -109,7 +109,7 @@ int pm8xxx_stay_on(void);
 
 int pm8xxx_preload_dVdd(void);
 
-int pm8xxx_usb_id_pullup(int enable);
+//int pm8xxx_usb_id_pullup(int enable);
 
 int pm8xxx_aux_clk_control(enum pm8xxx_aux_clk_id clk_id,
 				enum pm8xxx_aux_clk_div divider,
@@ -156,10 +156,6 @@ static inline int pm8xxx_preload_dVdd(void)
 {
 	return -ENODEV;
 }
-static inline int pm8xxx_usb_id_pullup(int enable)
-{
-	return -ENODEV;
-}
 static inline int pm8xxx_aux_clk_control(enum pm8xxx_aux_clk_id clk_id,
 			enum pm8xxx_aux_clk_div divider, bool enable)
 {
@@ -172,5 +168,9 @@ static inline int pm8xxx_hsed_bias_control(enum pm8xxx_hsed_bias bias,
 }
 
 #endif
+static inline int pm8xxx_usb_id_pullup(int enable)
+{
+	return -ENODEV;
+}
 
 #endif
