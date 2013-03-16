@@ -319,6 +319,19 @@ struct platform_device msm_pil_vidc = {
 	.id = -1,
 };
 
+static struct msm_rpmstats_platform_data msm_rpm_stat_pdata = {
+	.phys_addr_base = 0x00107E04,
+	.phys_size = SZ_8K,
+};
+
+struct platform_device msm_rpm_stat_device = {
+	.name = "msm_rpm_stat",
+	.id = -1,
+	.dev = {
+		.platform_data = &msm_rpm_stat_pdata,
+	},
+};
+
 static struct resource msm_uart1_dm_resources[] = {
 	{
 		.start = MSM_UART1DM_PHYS,
@@ -2848,11 +2861,6 @@ struct platform_device msm8660_rpm_log_device = {
 #endif
 
 #if defined(CONFIG_MSM_RPM_STATS_LOG)
-static struct msm_rpmstats_platform_data msm_rpm_stat_pdata = {
-	.phys_addr_base = 0x00107E04,
-	.phys_size = SZ_8K,
-};
-
 struct platform_device msm8660_rpm_stat_device = {
 	.name = "msm_rpm_stat",
 	.id = -1,
