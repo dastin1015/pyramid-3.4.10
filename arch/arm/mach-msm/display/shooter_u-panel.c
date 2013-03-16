@@ -456,8 +456,8 @@ static unsigned char shooter_u_shrink_pwm(int val)
 }
 
 static struct msm_panel_common_pdata mipi_novatek_panel_data;
-/*	.shrink_pwm = NULL,
-};*/
+	.shrink_pwm = NULL,
+};
 
 static struct platform_device mipi_dsi_cmd_sharp_qhd_panel_device = {
 	.name = "mipi_novatek",
@@ -1107,7 +1107,7 @@ int __init shooter_u_init_panel(struct resource *res, size_t size)
 
 	PR_DISP_INFO("%s: %s\n", __func__, mipi_dsi_cmd_sharp_qhd_panel_device.name);
 
-	//mipi_novatek_panel_data.shrink_pwm = NULL;
+	mipi_novatek_panel_data.shrink_pwm = NULL;
 
 	msm_fb_device.resource = res;
 	msm_fb_device.num_resources = size;
