@@ -455,7 +455,7 @@ static unsigned char shooter_u_shrink_pwm(int val)
 	return shrink_br;
 }
 
-static struct msm_panel_common_pdata mipi_novatek_panel_data;
+static struct msm_panel_common_pdata mipi_novatek_panel_data = {
 	.shrink_pwm = NULL,
 };
 
