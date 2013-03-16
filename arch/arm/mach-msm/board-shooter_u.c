@@ -99,11 +99,9 @@
 #include <mach/htc_headset_pmic.h>
 #include <mach/htc_headset_8x60.h>
 #include <linux/i2c/isl9519.h>
-#ifdef CONFIG_USB_G_ANDROID
 #include <linux/usb/android.h>
 #include <mach/tpa2051d3.h>
 #include <mach/usbdiag.h>
-#endif
 #include <linux/regulator/consumer.h>
 #include <linux/regulator/machine.h>
 #include <mach/sdio_al.h>
@@ -441,10 +439,28 @@ static unsigned shooter_u_perf_acpu_table[] = {
 	1188000000,
 };
 
-static struct perflock_platform_data shooter_u_perflock_data = {
+static struct perflock_data shooter_u_perflock_data = {
 	.perf_acpu_table = shooter_u_perf_acpu_table,
 	.table_size = ARRAY_SIZE(shooter_u_perf_acpu_table),
 };
+static struct perflock_data shooter_u_cpufreq_ceiling_data = {
+        .perf_acpu_table = shooter_u_perf_acpu_table,
+        .table_size = ARRAY_SIZE(shooter_u_perf_acpu_table),
+};
+
+static struct perflock_pdata perflock_pdata = {
+       .perf_floor = &shooter_u_perflock_data,
+       .perf_ceiling = &shooter_u_cpufreq_ceiling_data,
+};
+
+struct platform_device msm8x60_device_perf_lock = {
+       .name = "perf_lock",
+       .id = -1,
+       .dev = {
+               .platform_data = &perflock_pdata,
+       },
+};
+
 #endif
 
 /*
@@ -761,7 +777,7 @@ static struct isa1200_platform_data isa1200_1_pdata = {
 	.power_on = isa1200_power,
 	.dev_setup = isa1200_dev_setup,
 	/*gpio to enable haptic*/
-	.hap_en_gpio = PM8058_GPIO_PM_TO_SYS(SHOOTER_U_HAP_ENABLE),
+	//.hap_en_gpio = PM8058_GPIO_PM_TO_SYS(SHOOTER_U_HAP_ENABLE),
 	.max_timeout = 15000,
 	.mode_ctrl = PWM_GEN_MODE,
 	.pwm_fd = {
@@ -1207,7 +1223,6 @@ static struct msm_hsusb_gadget_platform_data msm_gadget_pdata = {
 };
 #endif
 
-#ifdef CONFIG_USB_G_ANDROID
 
 #define PID_MAGIC_ID		0x71432909
 #define SERIAL_NUM_MAGIC_ID	0x61945374
@@ -1274,7 +1289,6 @@ static struct platform_device android_usb_device = {
 	},
 };
 
-#endif
 
 static void config_gpio_table(uint32_t *table, int len);
 
@@ -1860,7 +1874,8 @@ static struct msm_camera_sensor_info msm_camera_sensor_qs_s5k4e1_data = {
 	.num_resources	= ARRAY_SIZE(msm_camera_resources),
 	.flash_data		= &flash_qs_s5k4e1,
 	.flash_cfg = &msm_camera_sensor_flash_cfg,
-	.stereo_low_cap_limit = 15,
+//	for now,better keeping it commented
+//	.stereo_low_cap_limit = 15,
 	.csi_if			= 1,
 	.dev_node		= 0,
 	.eeprom_data	= eeprom_data,
@@ -2697,10 +2712,10 @@ static struct msm_serial_hs_platform_data msm_uart_dm1_pdata = {
 	.wakeup_irq = -1,
 	.inject_rx_on_wakeup = 0,
 	.gpio_config = configure_uart_gpios,
-	.exit_lpm_cb = bcm_bt_lpm_exit_lpm_locked,
+//	.exit_lpm_cb = bcm_bt_lpm_exit_lpm_locked,
 };
 
-static struct bcm_bt_lpm_platform_data bcm_bt_lpm_pdata = {
+/*static struct bcm_bt_lpm_platform_data bcm_bt_lpm_pdata = {
 	.gpio_wake = SHOOTER_U_GPIO_BT_CHIP_WAKE,
 	.gpio_host_wake = SHOOTER_U_GPIO_BT_HOST_WAKE,
 	.request_clock_off_locked = msm_hs_request_clock_off_locked,
@@ -2713,7 +2728,7 @@ struct platform_device shooter_u_bcm_bt_lpm_device = {
 	.dev = {
 		.platform_data = &bcm_bt_lpm_pdata,
 	},
-};
+};*/
 #endif 
 #endif
 
@@ -3812,7 +3827,7 @@ static struct platform_device *shooter_u_devices[] __initdata = {
 #ifdef CONFIG_SERIAL_MSM_HS
 	&msm_device_uart_dm1,
 #ifdef CONFIG_BT
-	&shooter_u_bcm_bt_lpm_device,
+	//&shooter_u_bcm_bt_lpm_device,
 #endif
 #endif
 #ifdef CONFIG_MSM_SSBI
@@ -4938,7 +4953,6 @@ static void msm_auxpcm_init(void)
 	gpio_tlmm_config(auxpcm_gpio_table[2], GPIO_CFG_ENABLE);
 	gpio_tlmm_config(auxpcm_gpio_table[3], GPIO_CFG_ENABLE);
 }
-
 static struct tpa2051d3_platform_data tpa2051d3_pdata = {
 	.gpio_tpa2051_spk_en = SHOOTER_U_AUD_HP_EN,
 	.spkr_cmd = {0x00, 0x82, 0x00, 0x07, 0xCD, 0x4F, 0x0D},
@@ -4952,7 +4966,6 @@ static struct i2c_board_info msm_i2c_gsbi7_tpa2051d3_info[] = {
 		.platform_data = &tpa2051d3_pdata,
 	},
 };
-
 void msm_snddev_voltage_on(void)
 {
 }
@@ -5226,8 +5239,8 @@ static struct i2c_registry msm8x60_i2c_devices[] __initdata = {
 	{
 		I2C_SURF | I2C_FFA | I2C_FLUID | I2C_DRAGON,
 		MSM_GSBI7_QUP_I2C_BUS_ID,
-		msm_i2c_gsbi7_tpa2051d3_info,
-		ARRAY_SIZE(msm_i2c_gsbi7_tpa2051d3_info),
+//		msm_i2c_gsbi7_tpa2051d3_info,
+//		ARRAY_SIZE(msm_i2c_gsbi7_tpa2051d3_info),
 	},
 #endif
 #ifdef CONFIG_FB_MSM_HDMI_MHL
@@ -6626,10 +6639,6 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	msm8x60_init_buses();
 	platform_add_devices(early_devices, ARRAY_SIZE(early_devices));
 	/* CPU frequency control is not supported on simulated targets. */
-
-#ifdef CONFIG_PERFLOCK
-	perflock_init(&shooter_u_perflock_data);
-#endif
 
 #ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
 	set_two_phase_freq(1134000);
