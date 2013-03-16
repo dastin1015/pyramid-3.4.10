@@ -438,7 +438,7 @@ struct atmel_cfg {
 };
 
 struct atmel_mferr {
-	uint8_t cnt;
+	int8_t cnt;
 	struct atmel_cfg *cfg;
 };
 
@@ -496,7 +496,8 @@ struct atmel_i2c_platform_data {
 	uint8_t locking_config[1];
 	uint16_t filter_level[4];
 	uint8_t GCAF_level[5];
-	uint8_t mferr_config[13];
+	struct atmel_mferr mferr_config;
+	//uint8_t mferr_config[13];
 	struct atmel_mferr mferr_cfg;
 	struct atmel_mferr cfm_calb;
 	struct atmel_mferr cable_cfg;
