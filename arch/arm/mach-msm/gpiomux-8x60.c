@@ -62,7 +62,7 @@ static struct gpiomux_setting gsbi8 = {
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_NONE,
 };
-#if defined(CONFIG_MACH_PYRAMID)
+//#if defined(CONFIG_MACH_PYRAMID)
 static struct gpiomux_setting i2c_active_gsbi12 = {
 	.func = GPIOMUX_FUNC_2,
 	.drv = GPIOMUX_DRV_8MA,
@@ -74,7 +74,7 @@ static struct gpiomux_setting i2c_suspended_gsbi12_config = {
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_NONE,
 };
-#endif
+//#endif
 
 static struct gpiomux_setting ps_hold = {
 	.func = GPIOMUX_FUNC_1,
@@ -230,7 +230,7 @@ static struct gpiomux_setting aux_pcm_suspend_config = {
 	.pull = GPIOMUX_PULL_NONE,
 };
 
-#if defined(CONFIG_MACH_PYRAMID)
+//#if defined(CONFIG_MACH_PYRAMID)
 static struct gpiomux_setting rx_i2s_active_config = {
 	.func = GPIOMUX_FUNC_1,
 	.drv = GPIOMUX_DRV_2MA,
@@ -242,7 +242,7 @@ static struct gpiomux_setting rx_i2s_suspend_config = {
 	.drv = GPIOMUX_DRV_2MA,
 	.pull = GPIOMUX_PULL_DOWN,
 };
-#endif
+//#endif
 
 static struct gpiomux_setting uart1dm_active = {
 	.func = GPIOMUX_FUNC_1,
@@ -556,7 +556,7 @@ static struct msm_gpiomux_config msm8x60_gsbi_configs[] __initdata = {
 			[GPIOMUX_SUSPENDED] = &gsbi8,
 		},
 	},
-#if defined(CONFIG_MACH_PYRAMID)
+//#if defined(CONFIG_MACH_PYRAMID)
 	{
 		.gpio      = 115,
 		.settings = {
@@ -571,7 +571,7 @@ static struct msm_gpiomux_config msm8x60_gsbi_configs[] __initdata = {
 			[GPIOMUX_ACTIVE]    = &i2c_active_gsbi12,
 		},
 	},
-#endif
+//#endif
 };
 
 static struct msm_gpiomux_config msm8x60_fluid_gsbi_configs[] __initdata = {
@@ -942,7 +942,7 @@ static struct msm_gpiomux_config msm8x60_aux_pcm_configs[] __initdata = {
 	},
 };
 
-#if defined(CONFIG_MACH_PYRAMID)
+//#if defined(CONFIG_MACH_PYRAMID)
 static struct msm_gpiomux_config msm8x60_rx_i2s_configs[] __initdata = {
 	{
 		.gpio = 119,
